@@ -23,8 +23,36 @@ class Tamagotchi
 
   end
 
-  defind_method(:rest) do   # affects health and size
+  define_method(:rest) do   # affects health and size
 
+  end
+
+  define_method(:get_name) do
+    @name
+  end
+
+  define_method(:get_age) do
+    @age
+  end
+
+  define_method(:get_happiness) do
+    @happiness
+  end
+
+  define_method(:get_health) do
+    @health
+  end
+
+  define_method(:get_hunger) do
+    @hunger
+  end
+
+  define_method(:get_size) do
+    @size
+  end
+
+  define_method(:get_type) do
+    @type
   end
 
 end
