@@ -1,4 +1,5 @@
 class Tamagotchi
+  @@this_pet = []
 
   define_method(:initialize) do |name, type|
     @dead = false
@@ -23,20 +24,28 @@ class Tamagotchi
     @age_timer = Time.now()
   end
 
+  define_method(:add) do
+    @@this_pet.push(self)
+  end
+
+  define_singleton_method(:all) do
+    @@this_pet
+  end
+
   define_method(:update_status) do
     @current_time = Time.now()
     @elapsed_health_time = (@current_time - @health_timer).to_i
     @elapsed_happiness_time = (@current_time - @happiness_timer).to_i
     @elapsed_hunger_time = (@current_time - @hunger_timer).to_i
     @age = (@current_time - @age_timer).div(60)
-    if @elapsed_health_time > 30
-      @health -= 5 * @elapsed_health_time.div(30)
+    if @elapsed_health_time > 10
+      @health -= 5 * @elapsed_health_time.div(10)
     end
-    if @elapsed_happiness_time > 30
-      @happiness -= 5 * @elapsed_happiness_time.div(30)
+    if @elapsed_happiness_time > 10
+      @happiness -= 5 * @elapsed_happiness_time.div(10)
     end
-    if @elapsed_hunger_time > 30
-      @hunger -= 5 * @elapsed_hunger_time.div(30)
+    if @elapsed_hunger_time > 10
+      @hunger -= 5 * @elapsed_hunger_time.div(10)
     end
     if @health <= 0 || @hunger <= 0
       if @health <= 0
@@ -48,6 +57,7 @@ class Tamagotchi
       @dead = true
       "Your pet has died."
     end
+    self
   end
 
   define_method(:feed) do     # affects health and hunger and size
